@@ -1,0 +1,5 @@
+{
+  "action": "insert/replace/delete",
+  "word_to_insert": "vraiment",
+  "insert_after": "je suis"
+}

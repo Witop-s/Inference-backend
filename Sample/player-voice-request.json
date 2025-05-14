@@ -1,0 +1,13 @@
+{
+  "history": [
+    {
+      "role": "player",
+      "content": "C'est moi"
+    },
+    {
+      "role": "investigator",
+      "content": "Je le savais !"
+    }
+  ],
+  "being_written_message": "C'est pas ce que je voulais dire !"
+}
