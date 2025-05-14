@@ -7,9 +7,13 @@ app = func.FunctionApp()
 def inner_voice(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
-    body_json = req.get_json()
-    being_written_message = body_json['being_written_message']
-    history = body_json['history']
+    try:
+        body_json = req.get_json()
+        being_written_message = body_json['being_written_message']
+        history = body_json['history']
+    except:
+        print("Incorrect request body")
+        return func.HttpResponse("Incorrect request body", status_code=400)
 
     print(being_written_message)
     print(history)
