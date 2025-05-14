@@ -4,7 +4,7 @@ import logging
 app = func.FunctionApp()
 
 @app.route(route="inner-voice", auth_level=func.AuthLevel.ANONYMOUS)
-def saboteur(req: func.HttpRequest) -> func.HttpResponse:
+def inner_voice(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
 
     body_json = req.get_json()
