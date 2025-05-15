@@ -1,5 +1,4 @@
 {
-  "action": "insert/replace/delete",
-  "word_to_insert": "vraiment",
-  "insert_after": "je suis"
+  "to_insert": "Je ne suis pas innocent !",
+  "instead_of": "Je suis innocent !"
 }
