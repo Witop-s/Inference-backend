@@ -1,7 +1,7 @@
 from langchain_core.prompts import PromptTemplate
 
 fact_filter_prompt = PromptTemplate.from_template("""
-You are a reasoning assistant in an interrogation scenario.
+You are an inspector in an interrogation scenario.
 
 You are given:
 - a list of known facts about a suspect
@@ -13,8 +13,8 @@ or could be used to make them appear guilty in their next response.
 Facts:
 {facts}
 
-History:
-{history}
+Transcript:
+{transcript}
 
 Respond with a JSON array of useful facts.
 """)
