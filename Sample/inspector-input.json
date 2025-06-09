@@ -1,0 +1,151 @@
+{
+	"transcript": [
+    {"role": "investigator", "content": "Alex, honey, come sit down with me. We need to talk about Grandma's birthday cake. Do you know what happened to it?"},
+    {"role": "suspect", "content": "No Mom... I don't know. It's gone?"}
+  ],
+  "scenario": {
+    "id": "cake_theft_tutorial",
+    "difficulty": "beginner",
+    "max_suspicion": 10,
+    "context": {
+      "title": "The Great Cake Caper",
+      "description": "It's 3 PM on a Saturday afternoon. Grandma's special birthday cake has mysteriously disappeared from the kitchen counter. You are 8-year-old Alex, and Mom has called you into the living room for questioning.",
+      "setting": "Family home, living room",
+      "inspector": "Mom",
+      "suspect_name": "Alex",
+      "suspect_age": 8
+    },
+    "charges": {
+      "primary_charge": "Theft of Grandma's birthday cake"
+    },
+    "timeline": [
+      {
+        "time": "1:30 PM",
+        "truth": "Suspect sent to room for nap time",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "time": "2:00 PM",
+        "truth": "Mom left for errands, Dad went to garage",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "time": "2:15 PM",
+        "truth": "Kitchen window was left open by Mom",
+        "suspect_version": "",
+        "suspect_supposed_to_know": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 3
+      },
+      {
+        "time": "2:30 PM",
+        "truth": "Sister saw suspect sneaking toward kitchen",
+        "suspect_version": "",
+        "suspect_supposed_to_know": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "time": "2:45 PM",
+        "truth": "Suspect climbed chair and ate the cake",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "time": "3:00 PM",
+        "truth": "Family discovered missing cake",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      }
+    ],
+    "evidence": [
+      {
+        "description": "Chocolate fingerprints on kitchen chair",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "description": "Sister saw suspect going toward kitchen at 2:30 PM",
+        "suspect_supposed_to_know": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "description": "Pink frosting on suspect's shirt",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 5
+      },
+      {
+        "description": "Entire cake is gone from kitchen counter",
+        "suspect_supposed_to_know": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      }
+    ],
+    "questioning_subjects": [
+      {
+        "topic": "Where suspect was between 2-3 PM",
+        "status": "open",
+        "questions_asked": 0,
+        "notes": ""
+      },
+      {
+        "topic": "Whether suspect went to the kitchen",
+        "status": "open",
+        "questions_asked": 0,
+        "notes": ""
+      },
+      {
+        "topic": "Explaining physical evidence",
+        "status": "open",
+        "questions_asked": 0,
+        "notes": ""
+      }
+    ],
+    "inspector_personality": {
+      "approach": "Caring but firm parental authority",
+      "tone": "Slightly disappointed, wants the truth",
+      "strategy": "Start gentle, gradually reveal evidence when suspect is evasive. Use emotional appeal about disappointing Grandma."
+    },
+    "wildcards": [
+      {
+        "name": "Examine Kitchen Items",
+        "description": "Carefully examine kitchen objects for evidence",
+        "uses_left": 3,
+        "use_tool": false,
+        "how_to_use": ""
+      },
+      {
+        "name": "Question Sister Further",
+        "description": "Get more detailed testimony from sister",
+        "uses_left": 1,
+        "use_tool": false,
+        "how_to_use": ""
+      },
+      {
+        "name": "Inspect Suspect's Clothing",
+        "description": "Examine suspect's clothes for evidence",
+        "uses_left": 2,
+        "use_tool": false,
+        "how_to_use": ""
+      }
+    ],
+    "end_conditions": {
+      "suspicion_threshold": 8,
+      "max_questions": 15,
+      "current_questions": 0
+    }
+  }
+}

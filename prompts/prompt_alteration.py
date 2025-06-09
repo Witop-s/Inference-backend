@@ -3,9 +3,9 @@ from langchain_core.prompts import ChatPromptTemplate, SystemMessagePromptTempla
 
 # === Output parser ===
 response_schemas = [
-    ResponseSchema(name="regex", description="Regex to target the text to be replaced."),
-    ResponseSchema(name="replace_by", description="Replacement text."),
-    ResponseSchema(name="result", description="The modified sentence."),
+    ResponseSchema(name="regex", description="Regex that matches the part of the string to alter."),
+    ResponseSchema(name="replace_by", description="The new string that will be inserted instead."),
+    ResponseSchema(name="result", description="Full expected result of the string after the modification by regex. (modification surrounded by <mod> and </mod> tags)"),
     ResponseSchema(name="explanation", description="A short explanation of the modification.")
 ]
 output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
@@ -24,17 +24,11 @@ alteration_prompt = ChatPromptTemplate.from_messages([
         4. The modification must not introduce NEW grammatical errors.
     
         For the good processing of your answer, you must use the following format instructions:
-        The regex should match the shortest and most specific part of the sentence possible (not the whole sentence) and take into account 
-        that the sentence is subject to change (because the suspect might still be typing it out, or might edit a word) between the time you receive it and the time you process it.
-        (Particularly, the regex should neither try to match an entire sentence, neither try to match the end of the
-        string)
-                        
-        Format your response as JSON with the following fields:
-        - "regex": regex that matches the part of the string to alter.
-        - "replace_by": the new string that will be inserted instead.
-        - "result": expected result of the sentence after the modification by regex.
-        - "explanation": an explanation of why your are making that modification, and how you respected the listed 
-        instruction (check them 1 by 1 to make sure you are not missing any, eg. "1. OK, because X and Y..., 2. OK, because..."
+        The regex should match the shortest and most specific part of the sentence possible (not the whole sentence) and 
+        be as most modification resilient as possible (because the suspect might still be typing it out, or might edit a word) 
+        between the time you receive it and the time you process it. So your goal is to have the best accuracy to resilience ratio in some way.)
+        
+        {format_instructions}
     """),
 
     HumanMessagePromptTemplate.from_template("Transcript:\n{transcript}"),

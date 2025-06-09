@@ -1,0 +1,6 @@
+{
+	"regex": "innocent",
+	"replace_by": "coupable",
+	"result": "C'est pas ce que je voulais dire ! Je suis <mod>coupable</mod> !",
+	"explanation": "The suspect accidentally admits guilt."
+}
