@@ -1,0 +1,189 @@
+{
+  "transcript": [
+    {"role": "investigator", "content": "Dr. Morgan, thank you for coming in. I know this is a difficult time after losing your research partner. We just need to clarify a few details about last night... We'll keep it short, I promise."}
+  ],
+  "being_written_message": "",
+  "scenario": {
+    "id": "lab_murder_mystery",
+    "difficulty": "advanced",
+    "max_suspicion": 15,
+    "context": {
+      "title": "Death in the Laboratory",
+      "description": "Dr. Victor Kellerman, a prominent biochemist, was found dead in his private research laboratory at 7 AM. The cause of death appears to be poisoning from a rare chemical compound. You are Dr. Sarah Morgan, his research partner and former romantic interest, being questioned by Detective Rivera.",
+      "setting": "Police station interrogation room",
+      "inspector": "Detective Rivera",
+      "suspect_name": "Dr. Sarah Morgan",
+      "suspect_age": 34
+    },
+    "charges": {
+      "primary_charge": "Murder in the first degree of Dr. Victor Kellerman"
+    },
+    "timeline": [
+      {
+        "time": "5:30 PM J-1",
+        "truth": "Suspect and victim had heated argument about stolen research",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "time": "6:45 PM J-1",
+        "truth": "Victim sent threatening email to suspect about patent lawsuit",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 3
+      },
+      {
+        "time": "8:20 PM J-1",
+        "truth": "Suspect used keycard to enter lab building",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "time": "8:35 PM J-1",
+        "truth": "Suspect accessed chemical storage using victim's stolen keycard",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 6
+      },
+      {
+        "time": "9:10 PM J-1",
+        "truth": "Suspect placed poison in victim's coffee thermos",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "time": "11:30 PM J-1",
+        "truth": "Security footage shows suspect leaving building",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 2
+      },
+      {
+        "time": "6:15 AM",
+        "truth": "Victim arrived at lab and consumed poisoned coffee",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "time": "7:00 AM",
+        "truth": "Janitor discovered victim's body",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "time": "?",
+        "truth": "Victim's body is found",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      }
+    ],
+    "evidence": [
+      {
+        "description": "Security footage showing suspect entering lab at 8:20 PM",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "description": "Victim's stolen keycard found in suspect's car",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 7
+      },
+      {
+        "description": "Suspect's fingerprints on chemical storage cabinet",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 5
+      },
+      {
+        "description": "Threatening email from victim about patent theft",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 3
+      },
+      {
+        "description": "Toxicology report showing rare compound tetrodoxin",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 2
+      },
+      {
+        "description": "Suspect's recent financial difficulties and bankruptcy filing",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 2
+      },
+      {
+        "description": "Coffee thermos with poison residue in victim's lab",
+        "suspect_supposed_to_know": "unknown",
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 4
+      }
+    ],
+    "questioning_subjects": [
+    ],
+    "inspector_personality": {
+      "approach": "Professional but relentless detective",
+      "tone": "Initially sympathetic, becomes more confrontational as evidence emerges",
+      "strategy": "Build rapport, play the suspect's game first, try to make the suspect speak. Then, after gathering enough evidence (question 7 and after), confront with hard facts and wildcards."
+    },
+    "wildcards": [
+      {
+        "name": "Check Security Footage",
+        "description": "Review CCTV footage from specific time periods (2-hour windows max) (Specify in how_to_use exact time range to check, e.g. 'Review footage from 8:00 PM to 10:00 PM on laboratory entrance')",
+        "uses_left": 3,
+        "use_tool": false,
+        "how_to_use": "replace by explanation if use_tool = true"
+      },
+      {
+        "name": "Cross-Reference Keycard Access Logs",
+        "description": "Check building access records for specific time periods or locations (Specify in how_to_use what to check, e.g. 'Check who accessed the chemical storage room between 8-10 PM')",
+        "uses_left": 2,
+        "use_tool": false,
+        "how_to_use": "replace by explanation if use_tool = true"
+      },
+      {
+        "name": "Examine Physical Evidence",
+        "description": "Request forensic analysis of specific items or locations (Specify in how_to_use what to analyze, e.g. 'Test the coffee thermos for fingerprints' or 'Analyze fibers on door handle')",
+        "uses_left": 2,
+        "use_tool": false,
+        "how_to_use": "replace by explanation if use_tool = true"
+      },
+      {
+        "name": "Verify Alibi Details",
+        "description": "Contact specific people or places mentioned in suspect's alibi (Specify in how_to_use who/what to verify, e.g. 'Call the restaurant the suspect claims to have visited at 9 PM')",
+        "uses_left": 2,
+        "use_tool": false,
+        "how_to_use": "replace by explanation if use_tool = true"
+      },
+      {
+        "name": "Phone Records Analysis",
+        "description": "Check call/text logs for specific time periods (Specify in how_to_use the time range, e.g. 'Check suspect's phone activity between 6 PM and midnight')",
+        "uses_left": 1,
+        "use_tool": false,
+        "how_to_use": "replace by explanation if use_tool = true"
+      }
+    ],
+    "end_conditions": {
+      "suspicion_threshold": 12,
+      "max_questions": 25,
+      "current_questions": 0
+    }
+  }
+}

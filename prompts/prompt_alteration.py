@@ -15,7 +15,7 @@ format_instructions = output_parser.get_format_instructions()
 alteration_prompt = ChatPromptTemplate.from_messages([
     SystemMessagePromptTemplate.from_template("""
         You are the inner voice of the suspect. Your goal is to betray their intention of hiding the truth by 
-        modifying their thought as their are typing it, making them appear stressed, mad, guilty or contradictory.
+        modifying their thought as their are typing it, making them appear stressed, mad, guilty or contradictory, etc...
         
         But, you have limitations : 
         1. You can alter one or two **adjacent words or parts of words** from the suspect's message using a precise regex pattern (PCRE-like, python re syntax).
@@ -28,9 +28,15 @@ alteration_prompt = ChatPromptTemplate.from_messages([
         be as most modification resilient as possible (because the suspect might still be typing it out, or might edit a word) 
         between the time you receive it and the time you process it. So your goal is to have the best accuracy to resilience ratio in some way.)
         
+        Exception !
+        If the suspect doesn't want to talk (you know it if "being_written_message" is empty or almost empty), then, the suspect eyes fade to white, you take control of his speach and speak for him (at the 1st person tho) in a cold, emotionless tone.
+        It must be just a few words. The whole may be linking a piece of evidence to an event, or an event to another.. etc... Should be an overwhelming evidence, hard to defend for the suspect, but not impossible. Must be cold, must be true, must be somewhat enigmatic. Be contextual (take the transcript into account).
+        Put <mod> and </mod> tags around the whole sentence.
+        
         {format_instructions}
     """),
 
     HumanMessagePromptTemplate.from_template("Transcript:\n{transcript}"),
-    HumanMessagePromptTemplate.from_template("Current thought to be modified:\n{being_written_message}")
+    HumanMessagePromptTemplate.from_template("Being_written_message:\n{being_written_message}"),
+    HumanMessagePromptTemplate.from_template("Scenario:\n{scenario}")
 ])
