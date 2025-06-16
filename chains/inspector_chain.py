@@ -3,7 +3,7 @@ from langchain_mistralai.chat_models import ChatMistralAI
 from prompts.prompt_inspector import inspector_prompt, InspectorOutput, format_instructions
 from utils.common import log_input_to_llm
 
-llm_inspector = ChatMistralAI(model_name="mistral-small-latest", temperature=0.2)
+llm_inspector = ChatMistralAI(model="mistral-large-latest", temperature=0.2, timeout=9999, max_retries=2)
 
 inspector_chain = (
         RunnableMap({

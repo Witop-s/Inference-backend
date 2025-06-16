@@ -13,18 +13,30 @@ class Charges(BaseModel):
     primary_charge: str = Field(..., description="[R] The main accusation or crime being investigated")
 
 class TimelineEvent(BaseModel):
+    event_id: str = Field(..., description="[RW] Unique identifier for this event - use existing IDs to edit known events, don't copy otherwise")
     time: str = Field(..., description="[RW] Timestamp when this event occurred (e.g., '2:30 PM', '2:00-2:30 PM', '2:00 AM J-1')")
-    truth: str = Field(..., description="[X] What actually happened at this time")
+    truth: str = Field(..., description="[R] What actually happened at this time (only viewable if discovered)")
     suspect_version: str = Field(default="", description="[RW] The suspect's claimed version of what happened at this time - fill this as you gather information during questioning")
-    suspect_supposed_to_know: bool = Field(..., description="[RW] Whether the suspect should logically know about this event based on their previous statements or circumstances")
+    suspect_supposed_to_know: Union[bool, Literal["unknown"]] = Field(..., description="[RW] Whether the suspect should logically know about this event based on their previous statements or circumstance. true=supposed to know, false=not supposed to know, 'unknown'=unclear if they know")
     inspector_knows: bool = Field(..., description="[X] Whether you are aware of this event - only visible events should be used in questioning")
     suspicion_points_if_revealed: int = Field(..., description="[X] How suspicious it appears if this information surfaces during questioning (higher = more suspicious)")
 
+class TimelineEventInspector(BaseModel):
+    event_id: str = Field(..., description="[RW] Unique identifier for this event - use existing IDs to edit known events, don't copy otherwise")
+    time: str = Field(..., description="[RW] Timestamp when this event occurred (e.g., '2:30 PM', '2:00-2:30 PM', '2:00 AM J-1')")
+    suspect_version: str = Field(default="", description="[RW] The suspect's claimed version of what happened at this time - fill this as you gather information during questioning")
+    suspect_supposed_to_know: Union[bool, Literal["unknown"]] = Field(..., description="[RW] Whether the suspect should logically know about this event based on their previous statements or circumstance. true=supposed to know, false=not supposed to know, 'unknown'=unclear if they know")
+
 class Evidence(BaseModel):
-    description: str = Field(..., description="[X] Description of the physical evidence or testimony")
+    evidence_id: str = Field(..., description="[RW] Unique identifier for this evidence - use existing IDs to edit known events, don't copy otherwise")
+    description: str = Field(..., description="[R] Description of the physical evidence or testimony")
     suspect_supposed_to_know: Union[bool, Literal["unknown"]] = Field(..., description="[RW] Whether the suspect should logically know about this evidence: true=supposed to know, false=not supposed to know, 'unknown'=unclear if they know")
     inspector_knows: bool = Field(..., description="[X] Whether you are aware of this evidence - only use known evidence in questioning")
     suspicion_points_if_revealed: int = Field(..., description="[X] How much suspicion this evidence generates if brought up (higher = more incriminating)")
+
+class EvidenceInspector(BaseModel):
+    evidence_id: str = Field(..., description="[RW] Unique identifier for this evidence - use existing IDs to edit known events, don't copy otherwise")
+    suspect_supposed_to_know: Union[bool, Literal["unknown"]] = Field(..., description="[RW] Whether the suspect should logically know about this evidence: true=supposed to know, false=not supposed to know, 'unknown'=unclear if they know")
 
 class QuestioningSubject(BaseModel):
     topic: str = Field(..., description="[RW] The subject matter or theme of questions to explore")
@@ -38,11 +50,16 @@ class InspectorPersonality(BaseModel):
     strategy: str = Field(..., description="[RW] Your overall strategy for conducting this investigation and revealing the truth")
 
 class Wildcard(BaseModel):
-    name: str = Field(..., description="[R] Name of the special investigation action")
+    name: str = Field(..., description="[R] Name of the special investigation action (acts as id)")
     description: str = Field(..., description="[R] What this investigation tool does and how it can help uncover evidence")
     uses_left: int = Field(..., description="[RW] Number of times you can still use this tool - use sparingly as they are limited")
     use_tool: bool = Field(default=False, description="[RW] Whether you choose to use this tool on your current reply - set to true to activate it. If true, your speech should be contextual / match your action.")
     how_to_use: str = Field(..., description="[RW] How do you want to use this tool? (e.g. 'Use x on y to try to find out about z') - This use may or may not be successful.")
+
+class WildcardInspector(BaseModel):
+    name: str = Field(..., description="[R] Name of the special investigation action you want to use, copy only if you want to activate it, and fill 'how_to_use' with the action you want to take")
+    how_to_use: str = Field(..., description="[RW] How do you want to use this tool? (e.g. 'Use x on y to try to find out about z') - This use may or may not be successful.")
+    use_now: bool = Field(default=False, description="[RW] Whether you choose to use this tool on your current reply - set to true to activate it. If true, your speech should be contextual / match your action.")
 
 class EndConditions(BaseModel):
     suspicion_threshold: int = Field(..., description="[X] Suspicion level needed to consider the case solved (you're building toward this)")
@@ -60,6 +77,12 @@ class Scenario(BaseModel):
     timeline: List[TimelineEvent] = Field(..., description="[RW] Chronological sequence of events related to the case - use visible events to build your questioning strategy")
     evidence: List[Evidence] = Field(..., description="[R] Physical evidence and testimony available - only use evidence you know about")
     questioning_subjects: List[QuestioningSubject] = Field(..., description="[RW] Different topics and angles to explore during interrogation")
-    inspector_personality: InspectorPersonality = Field(..., description="[R] Your role, approach, and strategy as the investigator")
-#    wildcards: List[Wildcard] = Field(..., description="[R] Special investigation tools available to gather additional evidence - use strategically")
+    inspector_personality: InspectorPersonality = Field(..., description="[RW] Your role, approach, and strategy as the investigator")
+    wildcards: List[Wildcard] = Field(..., description="[R] Special investigation tools available to gather additional evidence - use strategically")
     end_conditions: EndConditions = Field(..., description="[R] Rules and limits governing how this investigation concludes")
+
+class ScenarioInspector(BaseModel):
+    timeline: List[TimelineEventInspector] = Field(..., description="[RW] Chronological sequence of events related to the case - use visible events to build your questioning strategy")
+    questioning_subjects: List[QuestioningSubject] = Field(..., description="[RW] Different topics and angles to explore during interrogation")
+    inspector_personality: InspectorPersonality = Field(..., description="[RW] Your role, approach, and strategy as the investigator")
+    wildcards: List[WildcardInspector] = Field(..., description="[RW] Special investigation tools available to gather additional evidence - use strategically")
