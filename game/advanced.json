@@ -198,7 +198,7 @@
     "suspect_wildcards": [
       {
         "name": "Self Control",
-        "description": "Your next turn will have 75% less chances of being altered",
+        "description": "Your next statement will have 75% less chances of being altered",
         "uses_left": 4
       },
       {
@@ -208,7 +208,7 @@
       },
       {
         "name": "F*ck Go Back !",
-        "description": "Go back in time to previous turn",
+        "description": "Go back to your previous statement",
         "uses_left": 1
       }
     ],
