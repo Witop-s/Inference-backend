@@ -1,15 +1,224 @@
 import json
 import logging
+from copy import deepcopy
+from typing import Tuple, Dict, Any, Set
+
 import azure.functions as func
+from pydantic import BaseModel
+from models.inspector_model import JsonInput
+
 from chains.inspector_chain import inspector_chain
+from prompts.prompt_inspector import JsonOutput
+
 
 def inspector(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('HTTP trigger: inspector')
 
     try:
         body_json = req.get_json()
-        result = inspector_chain.invoke(body_json)
-        return func.HttpResponse(result.json(), status_code=200, mimetype="application/json")
+        scenario_model = JsonInput(**body_json)
+        x_marked_fields, censored_body = extract_nested_fields_by_description(
+            body_json,
+            scenario_model,
+            '[X]'
+        )
+
+        logging.info(f"Extracted [X] fields: {list(x_marked_fields.keys())}")
+        result = inspector_chain.invoke(censored_body)
+        merged_result_dict = merge_extracted_fields(result.model_dump(), body_json)
+        merged_result = JsonOutput(**merged_result_dict)
+        return func.HttpResponse(merged_result.model_dump_json(), mimetype="application/json", status_code=200)
     except Exception as e:
         logging.error(f"Error: {e}")
         return func.HttpResponse("An error occurred.", status_code=500)
+
+
+def extract_fields_by_description_prefix(data: Dict[str, Any], model_class: BaseModel, prefix: str = '[X]') -> Tuple[
+    Dict[str, Any], Dict[str, Any]]:
+    """
+    Extract fields from JSON data based on Pydantic model field descriptions that start with a prefix
+
+    Args:
+        data: JSON data dict
+        model_class: Pydantic model class to inspect for field descriptions
+        prefix: Prefix to look for in field descriptions (e.g., '[X]')
+
+    Returns:
+        extracted: Dict with fields that have descriptions starting with prefix
+        remaining: Dict with remaining fields
+    """
+    # Get field names that have descriptions starting with the prefix
+    fields_to_extract = get_fields_with_description_prefix(model_class, prefix)
+
+    # Extract those fields from the data
+    extracted = {}
+    remaining = deepcopy(data)
+
+    for field_name in fields_to_extract:
+        if field_name in data:
+            extracted[field_name] = data[field_name]
+            remaining.pop(field_name, None)
+
+    return extracted, remaining
+
+
+def get_fields_with_description_prefix(model_class: BaseModel, prefix: str) -> Set[str]:
+    """
+    Get field names from a Pydantic model where the description starts with a specific prefix
+
+    Args:
+        model_class: Pydantic model class
+        prefix: Prefix to search for in descriptions
+
+    Returns:
+        Set of field names that match the criteria
+    """
+    matching_fields = set()
+
+    # Get the model's field info
+    logging.info("Checking model class for fields with description prefix")
+
+    fields_info = model_class.model_fields
+    for field_name, field_info in fields_info.items():
+        logging.info(f"Checking field {field_name}")
+        description = getattr(field_info, 'description', None)
+        logging.info(f"Field {field_name} description: {description}")
+        if description and description.startswith(prefix):
+            matching_fields.add(field_name)
+
+    return matching_fields
+
+
+def extract_nested_fields_by_description(data: Dict[str, Any], model_class: BaseModel, prefix: str = '[X]') -> Tuple[
+    Dict[str, Any], Dict[str, Any]]:
+    """
+    Recursively extract fields based on description prefix, handling nested Pydantic models
+
+    Args:
+        data: JSON data dict
+        model_class: Root Pydantic model class
+        prefix: Prefix to look for in field descriptions
+
+    Returns:
+        extracted: Dict with all fields (including nested) that match the prefix
+        remaining: Dict with remaining fields
+    """
+    extracted = {}
+    remaining = deepcopy(data)
+
+    def recursive_extract(current_data, current_model, path=""):
+        if not isinstance(current_data, dict) or not current_model:
+            return
+
+        # Get fields for current model level
+        fields_to_extract = get_fields_with_description_prefix(current_model, prefix)
+
+        # Extract matching fields at current level
+        for field_name in fields_to_extract:
+            if field_name in current_data:
+                full_path = f"{path}.{field_name}" if path else field_name
+                extracted[full_path] = current_data[field_name]
+
+                # Remove from remaining data
+                if path:
+                    # Navigate to nested location and remove
+                    remove_nested_field(remaining, full_path)
+                else:
+                    remaining.pop(field_name, None)
+
+        # Process nested models
+        if hasattr(current_model, 'model_fields'):
+            # Pydantic v2
+            fields_info = current_model.model_fields
+            for field_name, field_info in fields_info.items():
+                if field_name in current_data and field_name not in fields_to_extract:
+                    # Get the field type
+                    field_type = field_info.annotation
+
+                    # Handle nested BaseModel
+                    if isinstance(field_type, type) and issubclass(field_type, BaseModel):
+                        new_path = f"{path}.{field_name}" if path else field_name
+                        recursive_extract(current_data[field_name], field_type, new_path)
+
+                    # Handle List[BaseModel]
+                    elif hasattr(field_type, '__origin__') and field_type.__origin__ is list:
+                        list_item_type = field_type.__args__[0] if field_type.__args__ else None
+                        if list_item_type and isinstance(list_item_type, type) and issubclass(list_item_type,
+                                                                                              BaseModel):
+                            if isinstance(current_data[field_name], list):
+                                for i, item in enumerate(current_data[field_name]):
+                                    new_path = f"{path}.{field_name}.{i}" if path else f"{field_name}.{i}"
+                                    recursive_extract(item, list_item_type, new_path)
+
+    recursive_extract(data, model_class)
+    return extracted, remaining
+
+
+def remove_nested_field(data, path):
+    """Remove a field from nested dict using dot notation path"""
+    keys = path.split('.')
+    current = data
+
+    # Navigate to parent
+    for key in keys[:-1]:
+        if isinstance(current, dict) and key in current:
+            current = current[key]
+        elif key.isdigit() and isinstance(current, list):
+            idx = int(key)
+            if 0 <= idx < len(current):
+                current = current[idx]
+            else:
+                return
+        else:
+            return
+
+
+def merge_extracted_fields(base_data: Dict[str, Any], extracted_data: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Merge extracted fields back into base data
+
+    Args:
+        base_data: Base data dict
+        extracted_data: Extracted fields to merge back
+
+    Returns:
+        Merged data dict
+    """
+    result = deepcopy(base_data)
+
+    for path, value in extracted_data.items():
+        logging.info(f"Setting field {path} to value {value}")
+        set_nested_field(result, path, value)
+
+    return result
+
+
+def set_nested_field(data, path, value):
+    """Set a field in nested dict using dot notation path"""
+    keys = path.split('.')
+    current = data
+
+    # Navigate to parent, creating dicts as needed
+    for key in keys[:-1]:
+        if key.isdigit():
+            # Handle array index
+            idx = int(key)
+            if not isinstance(current, list):
+                current = []
+            while len(current) <= idx:
+                current.append({})
+            current = current[idx]
+        else:
+            if key not in current:
+                current[key] = {}
+            current = current[key]
+
+    # Set final value
+    final_key = keys[-1]
+    if final_key.isdigit() and isinstance(current, list):
+        idx = int(final_key)
+        while len(current) <= idx:
+            current.append(None)
+        current[idx] = value
+    else:
+        current[final_key] = value

@@ -3,6 +3,7 @@
     {"role": "investigator", "content": "Alex, honey, come sit down with me. We need to talk about Grandma's birthday cake. Do you know what happened to it?"},
     {"role": "suspect", "content": "No Mom... I don't know. It's gone?"}
   ],
+  "suspect_hand_gesture": "middle_finger",
   "scenario": {
     "id": "cake_theft_tutorial",
     "difficulty": "beginner",

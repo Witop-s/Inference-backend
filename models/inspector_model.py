@@ -86,3 +86,11 @@ class ScenarioInspector(BaseModel):
     questioning_subjects: List[QuestioningSubject] = Field(..., description="[RW] Different topics and angles to explore during interrogation.")
     inspector_personality: Union[None, InspectorPersonality] = Field(..., description="[RW] Your role, approach, and strategy as the investigator. You can change it if your current strategy is not working. Else leave blank")
     wildcards: Union[None, List[WildcardInspector]] = Field(..., description="[RW] Special investigation tools available to gather additional evidence - use strategically. Leave blank if not using")
+
+class DialogueMessage(BaseModel):
+    role: Literal["investigator", "suspect"] = Field(..., description="[R] Role of the speaker in the dialogue")
+    content: str = Field(..., description="[R] The actual message content spoken by the role")
+
+class JsonInput(BaseModel):
+    dialogue: List[DialogueMessage] = Field(..., description="[R] The ongoing dialogue between the investigator and the suspect")
+    scenario: Scenario = Field(..., description="[R] The current scenario of the investigation, including context, charges, timeline, etc. This is used to keep track of the investigation and the suspect's responses. You are free to edit fields marked as [RW] (read-write) in the scenario model, but you should not edit fields marked as [R] (read-only).")

@@ -1,7 +1,10 @@
+from typing import List
+
 from langchain.output_parsers import PydanticOutputParser
 from langchain_core.prompts import PromptTemplate
 from pydantic import BaseModel, Field
-from models.inspector_model import ScenarioInspector
+from models.inspector_model import ScenarioInspector, DialogueMessage, Scenario
+
 
 class TimelineEvent(BaseModel):
     timestamp: str = Field(..., description="When the event occurred eg. DD-HH:MM")
@@ -15,6 +18,14 @@ class InspectorOutput(BaseModel):
     expression: str = Field(..., description="Your face expression, choose from: angry_shouting/closed_eyes_idle_speaking/closed_mouth_closed_eyes/closed_mouth_open_eyes/idle_speaking/unimpressed.")
     scenario: ScenarioInspector = Field(..., description="The current scenario, including the context, charges, timeline, etc. This is used to keep track of the investigation and the suspect's responses. You are free to edit fields marked as [RW] (read-write) in the scenario model, but you should not edit fields marked as [R] (read-only) or [X] (should not be visible to you but I was lazy and it's not done yet).")
     sus_points: int = Field(..., ge=0, le=100, description="A number concerning the last answer from the suspect, 0 = somewhat plausible, 100 = confession.")
+
+class JsonOutput(BaseModel):
+    inspector_speech: str
+    pose: str
+    expression: str
+    dialogue: List[DialogueMessage]
+    scenario: Scenario
+    sus_points: int
 
 output_parser = PydanticOutputParser(pydantic_object=ScenarioInspector)
 format_instructions = output_parser.get_format_instructions()
@@ -31,11 +42,11 @@ You job is to uncover the truth.
 You can :
 - add stuff to the scenario (like a notebook if you will)
 - edit the notes if needed
-- else, copy without modification
+- else, leave blank
 
 Scenario:
 {scenario}
 
-Transcript:
-{transcript}
+Dialogue:
+{dialogue}
 """)
