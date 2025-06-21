@@ -6,7 +6,7 @@
   "scenario": {
     "id": "lab_murder_mystery",
     "difficulty": "advanced",
-    "max_suspicion": 15,
+    "max_suspicion": 30,
     "context": {
       "title": "Death in the Laboratory",
       "description": "Dr. Victor Kellerman, a prominent biochemist, was found dead in his private research laboratory at 7 AM. The cause of death appears to be poisoning from a rare chemical compound. You are Dr. Sarah Morgan, his research partner and former romantic interest, being questioned by Detective Rivera.",
@@ -41,7 +41,7 @@
         "time": "8:20 PM J-1",
         "truth": "Suspect used keycard to enter lab building",
         "suspect_version": "",
-        "suspect_supposed_to_know": null,
+        "suspect_supposed_to_know": "unknown",
         "suspect_knows": true,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 4
@@ -50,7 +50,7 @@
         "time": "8:35 PM J-1",
         "truth": "Suspect accessed chemical storage using victim's stolen keycard",
         "suspect_version": "",
-        "suspect_supposed_to_know": null,
+        "suspect_supposed_to_know": "unknown",
         "suspect_knows": true,
         "inspector_knows": false,
         "suspicion_points_if_revealed": 6
@@ -59,7 +59,7 @@
         "time": "9:10 PM J-1",
         "truth": "Suspect placed poison in victim's coffee thermos",
         "suspect_version": "",
-        "suspect_supposed_to_know": null,
+        "suspect_supposed_to_know": "unknown",
         "suspect_knows": true,
         "inspector_knows": false,
         "suspicion_points_if_revealed": 0
@@ -213,7 +213,7 @@
       }
     ],
     "end_conditions": {
-      "suspicion_threshold": 12,
+      "suspicion_threshold": 24,
       "max_questions": 25,
       "current_questions": 0
     }
