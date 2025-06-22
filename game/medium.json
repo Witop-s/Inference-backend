@@ -5,7 +5,7 @@
   "being_written_message": "",
   "scenario": {
     "id": "lab_murder_mystery",
-    "difficulty": "advanced",
+    "difficulty": "medium",
     "max_suspicion": 30,
     "context": {
       "title": "Death in the Laboratory",
@@ -13,6 +13,7 @@
       "setting": "Police station interrogation room",
       "inspector": "Detective Rivera",
       "suspect_name": "Dr. Sarah Morgan",
+      "suspect_description": "A brilliant biochemist. Dr. Victor Kellerman's research partner and former romantic interest.",
       "suspect_age": 34
     },
     "charges": {
