@@ -49,12 +49,17 @@ class InspectorPersonality(BaseModel):
     tone: str = Field(..., description="[RW] The emotional tone you should maintain during questioning")
     strategy: str = Field(..., description="[RW] Your overall strategy for conducting this investigation and revealing the truth")
 
-class Wildcard(BaseModel):
+class InspectorWildcard(BaseModel):
     name: str = Field(..., description="[R] Name of the special investigation action (acts as id)")
     description: str = Field(..., description="[R] What this investigation tool does and how it can help uncover evidence")
     uses_left: int = Field(..., description="[RW] Number of times you can still use this tool - use sparingly as they are limited")
     use_tool: bool = Field(default=False, description="[RW] Whether you choose to use this tool on your current reply - set to true to activate it. If true, your speech should be contextual / match your action.")
     how_to_use: str = Field(..., description="[RW] How do you want to use this tool? (e.g. 'Use x on y to try to find out about z') - This use may or may not be successful.")
+
+class SuspectWildcard(BaseModel):
+    name: str = Field(..., description="[X] Name of suspect's special investigation action")
+    description: str = Field(..., description="[X] What this investigation tool does and how it can help cover evidence")
+    uses_left: int = Field(..., description="[X] Number of times the suspect can still use this tool")
 
 class WildcardInspector(BaseModel):
     name: str = Field(..., description="[R] Name of the special investigation action you want to use, copy only if you want to activate it, and fill 'how_to_use' with the action you want to take")
@@ -78,14 +83,15 @@ class Scenario(BaseModel):
     evidence: List[Evidence] = Field(..., description="[R] Physical evidence and testimony available - only use evidence you know about")
     questioning_subjects: List[QuestioningSubject] = Field(..., description="[RW] Different topics and angles to explore during interrogation")
     inspector_personality: InspectorPersonality = Field(..., description="[RW] Your role, approach, and strategy as the investigator")
-    wildcards: List[Wildcard] = Field(..., description="[R] Special investigation tools available to gather additional evidence - use strategically")
+    inspector_wildcards: List[InspectorWildcard] = Field(..., description="[R] Special investigation tools available to gather additional evidence - use strategically")
+    suspect_wildcards: List[SuspectWildcard] = Field(..., description="[X] Special investigation tools available to the suspect")
     end_conditions: EndConditions = Field(..., description="[R] Rules and limits governing how this investigation concludes")
 
 class ScenarioInspector(BaseModel):
     timeline: List[TimelineEventInspector] = Field(..., description="[RW] Chronological sequence of events related to the case - use visible events to build your questioning strategy")
     questioning_subjects: List[QuestioningSubject] = Field(..., description="[RW] Different topics and angles to explore during interrogation.")
     inspector_personality: Union[None, InspectorPersonality] = Field(..., description="[RW] Your role, approach, and strategy as the investigator. You can change it if your current strategy is not working. Else leave blank")
-    wildcards: Union[None, List[WildcardInspector]] = Field(..., description="[RW] Special investigation tools available to gather additional evidence - use strategically. Leave blank if not using")
+    inspector_wildcards: Union[None, List[WildcardInspector]] = Field(..., description="[RW] Special investigation tools available to gather additional evidence - use strategically. Leave blank if not using")
 
 class DialogueMessage(BaseModel):
     role: Literal["investigator", "suspect"] = Field(..., description="[R] Role of the speaker in the dialogue")

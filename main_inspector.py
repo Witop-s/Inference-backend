@@ -22,9 +22,11 @@ def inspector(req: func.HttpRequest) -> func.HttpResponse:
             scenario_model,
             '[X]'
         )
-
         logging.info(f"Extracted [X] fields: {list(x_marked_fields.keys())}")
+
+        # inspector_wildcards = scenario_model.scenario.
         result = inspector_chain.invoke(censored_body)
+
         merged_result_dict = merge_extracted_fields(result.model_dump(), body_json)
         merged_result = JsonOutput(**merged_result_dict)
         return func.HttpResponse(merged_result.model_dump_json(), mimetype="application/json", status_code=200)

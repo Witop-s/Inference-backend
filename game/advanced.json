@@ -1,5 +1,5 @@
 {
-  "transcript": [
+  "dialogue": [
     {"role": "investigator", "content": "Dr. Morgan, thank you for coming in. I know this is a difficult time after losing your research partner. We just need to clarify a few details about last night... We'll keep it short, I promise."}
   ],
   "being_written_message": "",
@@ -20,6 +20,7 @@
     },
     "timeline": [
       {
+        "event_id": "1",
         "time": "5:30 PM J-1",
         "truth": "Suspect and victim had heated argument about stolen research",
         "suspect_version": "",
@@ -29,6 +30,7 @@
         "suspicion_points_if_revealed": 0
       },
       {
+        "event_id": "2",
         "time": "6:45 PM J-1",
         "truth": "Victim sent threatening email to suspect about patent lawsuit",
         "suspect_version": "",
@@ -38,6 +40,7 @@
         "suspicion_points_if_revealed": 3
       },
       {
+        "event_id": "3",
         "time": "8:20 PM J-1",
         "truth": "Suspect used keycard to enter lab building",
         "suspect_version": "",
@@ -47,6 +50,7 @@
         "suspicion_points_if_revealed": 4
       },
       {
+        "event_id": "4",
         "time": "8:35 PM J-1",
         "truth": "Suspect accessed chemical storage using victim's stolen keycard",
         "suspect_version": "",
@@ -56,6 +60,7 @@
         "suspicion_points_if_revealed": 6
       },
       {
+        "event_id": "5",
         "time": "9:10 PM J-1",
         "truth": "Suspect placed poison in victim's coffee thermos",
         "suspect_version": "",
@@ -65,6 +70,7 @@
         "suspicion_points_if_revealed": 0
       },
       {
+        "event_id": "6",
         "time": "11:30 PM J-1",
         "truth": "Security footage shows suspect leaving building",
         "suspect_version": "",
@@ -74,6 +80,7 @@
         "suspicion_points_if_revealed": 2
       },
       {
+        "event_id": "7",
         "time": "6:15 AM",
         "truth": "Victim arrived at lab and consumed poisoned coffee",
         "suspect_version": "",
@@ -83,6 +90,7 @@
         "suspicion_points_if_revealed": 0
       },
       {
+        "event_id": "8",
         "time": "7:00 AM",
         "truth": "Janitor discovered victim's body",
         "suspect_version": "",
@@ -92,6 +100,7 @@
         "suspicion_points_if_revealed": 0
       },
       {
+        "event_id": "9",
         "time": "?",
         "truth": "Victim's body is found",
         "suspect_version": "",
@@ -102,6 +111,7 @@
     ],
     "evidence": [
       {
+        "evidence_id": "1",
         "description": "Security footage showing suspect entering lab at 8:20 PM",
         "suspect_supposed_to_know": "unknown",
         "suspect_knows": false,
@@ -109,6 +119,7 @@
         "suspicion_points_if_revealed": 4
       },
       {
+        "evidence_id": "2",
         "description": "Victim's stolen keycard found in suspect's car",
         "suspect_supposed_to_know": "unknown",
         "suspect_knows": false,
@@ -116,6 +127,7 @@
         "suspicion_points_if_revealed": 7
       },
       {
+        "evidence_id": "3",
         "description": "Suspect's fingerprints on chemical storage cabinet",
         "suspect_supposed_to_know": "unknown",
         "suspect_knows": false,
@@ -123,6 +135,7 @@
         "suspicion_points_if_revealed": 5
       },
       {
+        "evidence_id": "4",
         "description": "Threatening email from victim about patent theft",
         "suspect_supposed_to_know": "unknown",
         "suspect_knows": false,
@@ -130,6 +143,7 @@
         "suspicion_points_if_revealed": 3
       },
       {
+        "evidence_id": "5",
         "description": "Toxicology report showing rare compound tetrodoxin",
         "suspect_supposed_to_know": "unknown",
         "suspect_knows": false,
@@ -137,6 +151,7 @@
         "suspicion_points_if_revealed": 2
       },
       {
+        "evidence_id": "6",
         "description": "Suspect's recent financial difficulties and bankruptcy filing",
         "suspect_supposed_to_know": "unknown",
         "suspect_knows": false,
@@ -144,6 +159,7 @@
         "suspicion_points_if_revealed": 2
       },
       {
+        "evidence_id": "7",
         "description": "Coffee thermos with poison residue in victim's lab",
         "suspect_supposed_to_know": "unknown",
         "suspect_knows": false,
