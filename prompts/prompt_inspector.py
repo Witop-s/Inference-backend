@@ -27,7 +27,7 @@ class JsonOutput(BaseModel):
     scenario: Scenario
     sus_points: int
 
-output_parser = PydanticOutputParser(pydantic_object=ScenarioInspector)
+output_parser = PydanticOutputParser(pydantic_object=InspectorOutput)
 format_instructions = output_parser.get_format_instructions()
 
 inspector_prompt = PromptTemplate.from_template("""

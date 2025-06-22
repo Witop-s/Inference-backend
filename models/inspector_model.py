@@ -22,20 +22,20 @@ class TimelineEvent(BaseModel):
     suspicion_points_if_revealed: int = Field(..., description="[X] How suspicious it appears if this information surfaces during questioning (higher = more suspicious)")
 
 class TimelineEventInspector(BaseModel):
-    event_id: str = Field(..., description="[RW] Unique identifier for this event - use existing IDs to edit known events, don't copy otherwise")
+    event_id: str = Field(..., description="[RW] Unique identifier for this event")
     time: str = Field(..., description="[RW] Timestamp when this event occurred (e.g., '2:30 PM', '2:00-2:30 PM', '2:00 AM J-1')")
     suspect_version: str = Field(default="", description="[RW] The suspect's claimed version of what happened at this time - fill this as you gather information during questioning")
     suspect_supposed_to_know: Union[None, bool, Literal["unknown"]] = Field(..., description="[RW] Whether the suspect should logically know about this event based on their previous statements or circumstance. true=supposed to know, false=not supposed to know, 'unknown'=unclear if they know")
 
 class Evidence(BaseModel):
-    evidence_id: str = Field(..., description="[RW] Unique identifier for this evidence - use existing IDs to edit known events, don't copy otherwise")
+    evidence_id: str = Field(..., description="[RW] Unique identifier for this evidence")
     description: str = Field(..., description="[R] Description of the physical evidence or testimony")
     suspect_supposed_to_know: Union[bool, Literal["unknown"]] = Field(..., description="[RW] Whether the suspect should logically know about this evidence: true=supposed to know, false=not supposed to know, 'unknown'=unclear if they know")
     inspector_knows: bool = Field(..., description="[X] Whether you are aware of this evidence - only use known evidence in questioning")
     suspicion_points_if_revealed: int = Field(..., description="[X] How much suspicion this evidence generates if brought up (higher = more incriminating)")
 
 class EvidenceInspector(BaseModel):
-    evidence_id: str = Field(..., description="[RW] Unique identifier for this evidence - use existing IDs to edit known events, don't copy otherwise")
+    evidence_id: str = Field(..., description="[RW] Unique identifier for this evidence")
     suspect_supposed_to_know: Union[None, bool, Literal["unknown"]] = Field(..., description="[RW] Whether the suspect should logically know about this evidence: true=supposed to know, false=not supposed to know, 'unknown'=unclear if they know")
 
 class QuestioningSubject(BaseModel):

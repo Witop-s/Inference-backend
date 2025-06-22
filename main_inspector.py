@@ -160,20 +160,28 @@ def remove_nested_field(data, path):
     """Remove a field from nested dict using dot notation path"""
     keys = path.split('.')
     current = data
-
-    # Navigate to parent
-    for key in keys[:-1]:
-        if isinstance(current, dict) and key in current:
-            current = current[key]
-        elif key.isdigit() and isinstance(current, list):
+    for i, key in enumerate(keys[:-1]):
+        if isinstance(current, dict):
+            current = current.get(key, {})
+        elif isinstance(current, list) and key.isdigit():
             idx = int(key)
             if 0 <= idx < len(current):
                 current = current[idx]
             else:
-                return
+                logging.warning(f"Index {idx} out of bounds for list at path {'.'.join(keys[:i+1])}")
+                return  # out of bounds
         else:
-            return
+            logging.warning(f"Invalid path segment '{key}' at path {'.'.join(keys[:i+1])}")
+            return  # path invalid
 
+    # Remove the final key
+    final_key = keys[-1]
+    if isinstance(current, dict):
+        current.pop(final_key, None)
+    elif isinstance(current, list) and final_key.isdigit():
+        idx = int(final_key)
+        if 0 <= idx < len(current):
+            current.pop(idx)
 
 def merge_extracted_fields(base_data: Dict[str, Any], extracted_data: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -189,7 +197,7 @@ def merge_extracted_fields(base_data: Dict[str, Any], extracted_data: Dict[str, 
     result = deepcopy(base_data)
 
     for path, value in extracted_data.items():
-        logging.info(f"Setting field {path} to value {value}")
+        logging.info(f"Setting field {path} to value *silenced*")
         set_nested_field(result, path, value)
 
     return result
