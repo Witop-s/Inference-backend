@@ -22,7 +22,7 @@
     "timeline": [
       {
         "event_id": "1",
-        "time": "5:30 PM J-1",
+        "time": "5:30 PM D-1",
         "truth": "Suspect and victim had heated argument about stolen research",
         "suspect_version": "",
         "suspect_supposed_to_know": true,
@@ -32,7 +32,7 @@
       },
       {
         "event_id": "2",
-        "time": "6:45 PM J-1",
+        "time": "6:45 PM D-1",
         "truth": "Victim sent threatening email to suspect about patent lawsuit",
         "suspect_version": "",
         "suspect_supposed_to_know": "unknown",
@@ -42,7 +42,7 @@
       },
       {
         "event_id": "3",
-        "time": "8:20 PM J-1",
+        "time": "8:20 PM D-1",
         "truth": "Suspect used keycard to enter lab building",
         "suspect_version": "",
         "suspect_supposed_to_know": "unknown",
@@ -52,7 +52,7 @@
       },
       {
         "event_id": "4",
-        "time": "8:35 PM J-1",
+        "time": "8:35 PM D-1",
         "truth": "Suspect accessed chemical storage using victim's stolen keycard",
         "suspect_version": "",
         "suspect_supposed_to_know": "unknown",
@@ -62,7 +62,7 @@
       },
       {
         "event_id": "5",
-        "time": "9:10 PM J-1",
+        "time": "9:10 PM D-1",
         "truth": "Suspect placed poison in victim's coffee thermos",
         "suspect_version": "",
         "suspect_supposed_to_know": "unknown",
@@ -72,7 +72,7 @@
       },
       {
         "event_id": "6",
-        "time": "11:30 PM J-1",
+        "time": "11:30 PM D-1",
         "truth": "Security footage shows suspect leaving building",
         "suspect_version": "",
         "suspect_supposed_to_know": "unknown",
