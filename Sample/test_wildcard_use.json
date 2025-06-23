@@ -1,6 +1,10 @@
 {
   "dialogue": [
-    {"role": "investigator", "content": "Dr. Morgan, thank you for coming in. I know this is a difficult time after losing your research partner. We just need to clarify a few details about last night... We'll keep it short, I promise."}
+    {"role": "investigator", "content": "Dr. Morgan, thank you for coming in. I know this is a difficult time after losing your research partner. We just need to clarify a few details about last night... We'll keep it short, I promise."},
+    {"role": "suspect", "content": "Yes thank you... it's pretty rough for me you know..."},
+    {"role": "investigator", "content": "I understand. Tho, I still have question to ask you. We where you last night around 8 PM?"},
+    {"role": "suspect", "content": "I was at home, I had a lot of work to do."},
+    {"role": "investigator", "content": "I'm not sure about that, in fact, I think I'll check the security footage..."}
   ],
   "being_written_message": "",
   "scenario": {
@@ -181,8 +185,8 @@
         "name": "Check Security Footage",
         "description": "Review CCTV footage from specific time periods (2-hour windows max) (Specify in how_to_use exact time range to check, e.g. 'Review footage from 8:00 PM to 10:00 PM on laboratory entrance')",
         "uses_left": 3,
-        "use_tool": false,
-        "how_to_use": "replace by explanation if use_tool = true"
+        "use_tool": true,
+        "how_to_use": "Check security footage from 8:00 PM to 10:00 PM on laboratory entrance"
       },
       {
         "name": "Cross-Reference Keycard Access Logs",

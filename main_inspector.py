@@ -5,11 +5,12 @@ from typing import Tuple, Dict, Any, Set
 
 import azure.functions as func
 from pydantic import BaseModel
-from models.inspector_model import JsonInput
+
+from chains import gamemaster_chain
+from models.inspector_model import JsonInput, JsonOutput
 
 from chains.inspector_chain import inspector_chain
-from prompts.prompt_inspector import JsonOutput
-
+from chains.gamemaster_chain import gamemaster_chain
 
 def inspector(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('HTTP trigger: inspector')
@@ -17,6 +18,15 @@ def inspector(req: func.HttpRequest) -> func.HttpResponse:
     try:
         body_json = req.get_json()
         scenario_model = JsonInput(**body_json)
+
+        if is_wildcard_been_used(scenario_model):
+            logging.info("Wildcard has been used, invoking gamemaster chain")
+            gamemaster_result = gamemaster_chain.invoke(scenario_model)
+            merged_dict = deep_merge_dicts(deepcopy(body_json), gamemaster_result.model_dump())
+            scenario_model = JsonInput(**merged_dict)
+            body_json = merged_dict
+            logging.info("Gamemaster chain invoked successfully, scenario model updated to %s", scenario_model)
+
         x_marked_fields, censored_body = extract_nested_fields_by_description(
             body_json,
             scenario_model,
@@ -24,16 +34,47 @@ def inspector(req: func.HttpRequest) -> func.HttpResponse:
         )
         logging.info(f"Extracted [X] fields: {list(x_marked_fields.keys())}")
 
-        # inspector_wildcards = scenario_model.scenario.
         result = inspector_chain.invoke(censored_body)
 
         merged_result_dict = merge_extracted_fields(result.model_dump(), body_json)
         merged_result = JsonOutput(**merged_result_dict)
+
         return func.HttpResponse(merged_result.model_dump_json(), mimetype="application/json", status_code=200)
     except Exception as e:
-        logging.error(f"Error: {e}")
+        logging.error(f"Error main_inspector: {e}")
         return func.HttpResponse("An error occurred.", status_code=500)
 
+def deep_merge_dicts(base: Dict[str, Any], update: Dict[str, Any]) -> Dict[str, Any]:
+    """Recursively merge `update` into `base`."""
+    merged = deepcopy(base)
+
+    for key, value in update.items():
+        if (
+            key in merged and
+            isinstance(merged[key], dict) and
+            isinstance(value, dict)
+        ):
+            merged[key] = deep_merge_dicts(merged[key], value)
+        else:
+            merged[key] = deepcopy(value)
+
+    return merged
+
+
+def is_wildcard_been_used(scenario_model: JsonInput) -> bool:
+    """
+    Check if the inspector has used a wildcard tool in the scenario model.
+
+    Args:
+        scenario_model: The scenario model containing the dialogue and tools used.
+
+    Returns:
+        bool: True if a wildcard tool was used, False otherwise.
+    """
+    for inspector_wildcards in scenario_model.scenario.inspector_wildcards:
+        if inspector_wildcards.use_tool:
+            return True
+    return False
 
 def extract_fields_by_description_prefix(data: Dict[str, Any], model_class: BaseModel, prefix: str = '[X]') -> Tuple[
     Dict[str, Any], Dict[str, Any]]:
@@ -82,9 +123,9 @@ def get_fields_with_description_prefix(model_class: BaseModel, prefix: str) -> S
 
     fields_info = model_class.model_fields
     for field_name, field_info in fields_info.items():
-        logging.info(f"Checking field {field_name}")
+        # logging.info(f"Checking field {field_name}")
         description = getattr(field_info, 'description', None)
-        logging.info(f"Field {field_name} description: {description}")
+        # logging.info(f"Field {field_name} description: {description}")
         if description and description.startswith(prefix):
             matching_fields.add(field_name)
 

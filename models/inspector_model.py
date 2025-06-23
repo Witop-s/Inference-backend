@@ -18,6 +18,7 @@ class TimelineEvent(BaseModel):
     truth: str = Field(..., description="[R] What actually happened at this time (only viewable if discovered)")
     suspect_version: str = Field(default="", description="[RW] The suspect's claimed version of what happened at this time - fill this as you gather information during questioning")
     suspect_supposed_to_know: Union[bool, Literal["unknown"]] = Field(..., description="[RW] Whether the suspect should logically know about this event based on their previous statements or circumstance. true=supposed to know, false=not supposed to know, 'unknown'=unclear if they know")
+    suspect_knows: bool = Field(..., description="[X] Whether the suspect is aware of this event ")
     inspector_knows: bool = Field(..., description="[X] Whether you are aware of this event - only visible events should be used in questioning")
     suspicion_points_if_revealed: int = Field(..., description="[X] How suspicious it appears if this information surfaces during questioning (higher = more suspicious)")
 
@@ -94,9 +95,17 @@ class ScenarioInspector(BaseModel):
     inspector_wildcards: Union[None, List[WildcardInspector]] = Field(..., description="[RW] Special investigation tools available to gather additional evidence - use strategically. Leave blank if not using")
 
 class DialogueMessage(BaseModel):
-    role: Literal["investigator", "suspect"] = Field(..., description="[R] Role of the speaker in the dialogue")
+    role: Literal["investigator", "suspect", "gamemaster"] = Field(..., description="[R] Role of the speaker in the dialogue")
     content: str = Field(..., description="[R] The actual message content spoken by the role")
 
 class JsonInput(BaseModel):
     dialogue: List[DialogueMessage] = Field(..., description="[R] The ongoing dialogue between the investigator and the suspect")
     scenario: Scenario = Field(..., description="[R] The current scenario of the investigation, including context, charges, timeline, etc. This is used to keep track of the investigation and the suspect's responses. You are free to edit fields marked as [RW] (read-write) in the scenario model, but you should not edit fields marked as [R] (read-only).")
+
+class JsonOutput(BaseModel):
+    inspector_speech: str
+    pose: str
+    expression: str
+    dialogue: List[DialogueMessage]
+    scenario: Scenario
+    sus_points: int = Field(..., ge=0, le=100, description="[RW] A number concerning the last answer from the suspect, 0 = plausible given the context, 50 = weird/uncollaborative, 100 = confession.")

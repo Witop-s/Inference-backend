@@ -19,14 +19,6 @@ class InspectorOutput(BaseModel):
     scenario: ScenarioInspector = Field(..., description="The current scenario, including the context, charges, timeline, etc. This is used to keep track of the investigation and the suspect's responses. You are free to edit fields marked as [RW] (read-write) in the scenario model")
     sus_points: int = Field(..., ge=0, le=100, description="A number concerning the last answer from the suspect, 0 = plausible given the context, 50 = weird/uncollaborative, 100 = confession.")
 
-class JsonOutput(BaseModel):
-    inspector_speech: str
-    pose: str
-    expression: str
-    dialogue: List[DialogueMessage]
-    scenario: Scenario
-    sus_points: int
-
 output_parser = PydanticOutputParser(pydantic_object=InspectorOutput)
 format_instructions = output_parser.get_format_instructions()
 
