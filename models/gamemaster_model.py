@@ -11,3 +11,4 @@ class ScenarioGamemaster(BaseModel):
 class JsonOutput(BaseModel):
     dialogue: List[DialogueMessage]
     scenario: ScenarioGamemaster
+    suspicion_points: int = Field(..., ge=0, description="Total suspicion points accumulated by the inspector, used to assess the suspect's credibility")

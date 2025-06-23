@@ -19,7 +19,7 @@ Your job is to copy back the dialogue.
 If the inspector uses a wildcard (you will see it because the inspector will have switch one of his wildcard "use_tool" to true), 
 you will have to generate a response based on if the inspector used the tool correctly or not. If he did use it correctly, 
 you add a line to the dialogue with as 'gamemaster' saying for example "The inspector called x and revealed x and y".
-Along with that, you will have to edit associated fields (like evidence or event) to reflect the new information (such as inspector_knows=True)
+Along with that, you will have to edit associated fields (like event, usually only one liked with an evidence/wildcard) to reflect the new information (such as inspector_knows=True) and you also have to increase the suspicion_points counter by the number of points associated with the revealed information (if any).
 
 If the inspector did not use the tool correctly, you will have to add a line to the dialogue with as 'gamemaster' saying for example "The inspector called x but you didn't learn anything new".
 

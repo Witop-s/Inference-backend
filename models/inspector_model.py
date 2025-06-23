@@ -108,4 +108,4 @@ class JsonOutput(BaseModel):
     expression: str
     dialogue: List[DialogueMessage]
     scenario: Scenario
-    sus_points: int = Field(..., ge=0, le=100, description="[RW] A number concerning the last answer from the suspect, 0 = plausible given the context, 50 = weird/uncollaborative, 100 = confession.")
+    suspicion_points: int = Field(..., ge=0, description="[R] Total suspicion points accumulated by the inspector, used to assess the suspect's credibility")
