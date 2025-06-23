@@ -5,7 +5,7 @@ from prompts.prompt_gamemaster import gamemaster_prompt, format_instructions
 from models.gamemaster_model import JsonOutput
 from utils.common import log_input_to_llm, log_output_from_llm
 
-llm_inspector = ChatMistralAI(model_name="mistral-small-latest", temperature=0.2, timeout=9999, max_retries=2)
+llm_inspector = ChatMistralAI(model="mistral-small-latest", temperature=0.2, timeout=9999, max_retries=2)
 
 gamemaster_chain = (
         RunnableMap({
