@@ -7,13 +7,19 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Importer les handlers
-from main_inner_voice import inner_voice
-from main_fact_filter import inner_voice_fact_filter
-from main_inspector import inspector
-from main_get_scenario import get_scenario
-from main_endgame import endgame
+from functions.main_inner_voice import inner_voice
+from functions.main_fact_filter import inner_voice_fact_filter
+from functions.main_inspector import inspector
+from functions.main_get_scenario import get_scenario
+from functions.main_endgame import endgame
 
 app = func.FunctionApp()
+
+@app.function_name(name="ping")
+@app.route(route="ping", auth_level=func.AuthLevel.ANONYMOUS)
+def ping(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info("ping called")
+    return func.HttpResponse("pong", status_code=200)
 
 @app.function_name(name="inner_voice")
 @app.route(route="inner-voice", auth_level=func.AuthLevel.ANONYMOUS)
