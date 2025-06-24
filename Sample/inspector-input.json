@@ -137,7 +137,7 @@
       "tone": "Slightly disappointed, wants the truth",
       "strategy": "Start gentle, gradually reveal evidence when suspect is evasive. Use emotional appeal about disappointing Grandma."
     },
-    "wildcards": [
+    "inspector_wildcards": [
       {
         "name": "Examine Kitchen Items",
         "description": "Carefully examine kitchen objects for evidence",
