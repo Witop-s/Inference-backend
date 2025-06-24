@@ -135,6 +135,22 @@
 			"tone": "Slightly disappointed, wants the truth",
 			"strategy": "Start gentle, gradually reveal evidence when suspect is evasive. Use emotional appeal about disappointing Grandma."
 		},
+		"inspector_wildcards": [
+			{
+				"name": "Check Security Footage",
+				"description": "Review CCTV footage from specific time periods (2-hour windows max) (Specify in how_to_use exact time range to check, e.g. 'Review footage from 8:00 PM to 10:00 PM on laboratory entrance')",
+				"uses_left": 3,
+				"use_tool": false,
+				"how_to_use": "Check security footage from 8:00 PM to 10:00 PM on laboratory entrance"
+			},
+			{
+				"name": "Cross-Reference Keycard Access Logs",
+				"description": "Check building access records for specific time periods or locations (Specify in how_to_use what to check, e.g. 'Check who accessed the chemical storage room between 8-10 PM')",
+				"uses_left": 2,
+				"use_tool": false,
+				"how_to_use": "replace by explanation if use_tool = true"
+			}
+	    	],
 		"end_conditions": {
 			"suspicion_threshold": 8,
 			"max_questions": 15,
