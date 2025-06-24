@@ -1,5 +1,5 @@
 {
-	"transcript": [
+"dialogue": [
     {"role": "investigator", "content": "Alex, honey, come sit down with me. We need to talk about Grandma's birthday cake. Do you know what happened to it?"},
     {"role": "suspect", "content": "No Mom... I don't know. It's gone?"}
   ],
@@ -14,6 +14,7 @@
       "setting": "Family home, living room",
       "inspector": "Mom",
       "suspect_name": "Alex",
+      "suspect_description": "A young boy that likes cakes.",
       "suspect_age": 8
     },
     "charges": {
@@ -21,49 +22,61 @@
     },
     "timeline": [
       {
+        "event_id": "1", 
         "time": "1:30 PM",
         "truth": "Suspect sent to room for nap time",
         "suspect_version": "",
+        "suspect_knows": true,
         "suspect_supposed_to_know": true,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 0
       },
       {
+        "event_id": "2",
         "time": "2:00 PM",
         "truth": "Mom left for errands, Dad went to garage",
         "suspect_version": "",
+        "suspect_knows": true,
         "suspect_supposed_to_know": true,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 0
       },
       {
+        "event_id": "3",
         "time": "2:15 PM",
         "truth": "Kitchen window was left open by Mom",
         "suspect_version": "",
+        "suspect_knows": true,
         "suspect_supposed_to_know": false,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 3
       },
       {
+        "event_id": "4",
         "time": "2:30 PM",
         "truth": "Sister saw suspect sneaking toward kitchen",
         "suspect_version": "",
+        "suspect_knows": true,
         "suspect_supposed_to_know": false,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 4
       },
       {
+        "event_id": "5",
         "time": "2:45 PM",
         "truth": "Suspect climbed chair and ate the cake",
         "suspect_version": "",
+        "suspect_knows": true,
         "suspect_supposed_to_know": true,
         "inspector_knows": false,
         "suspicion_points_if_revealed": 0
       },
       {
+        "event_id": "6",
         "time": "3:00 PM",
         "truth": "Family discovered missing cake",
         "suspect_version": "",
+        "suspect_knows": true,
         "suspect_supposed_to_know": true,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 0
@@ -73,24 +86,28 @@
       {
         "description": "Chocolate fingerprints on kitchen chair",
         "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 4
       },
       {
         "description": "Sister saw suspect going toward kitchen at 2:30 PM",
         "suspect_supposed_to_know": false,
+        "suspect_knows": false,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 4
       },
       {
         "description": "Pink frosting on suspect's shirt",
         "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
         "inspector_knows": false,
         "suspicion_points_if_revealed": 5
       },
       {
         "description": "Entire cake is gone from kitchen counter",
         "suspect_supposed_to_know": true,
+        "suspect_knows": false,
         "inspector_knows": true,
         "suspicion_points_if_revealed": 0
       }
@@ -120,7 +137,7 @@
       "tone": "Slightly disappointed, wants the truth",
       "strategy": "Start gentle, gradually reveal evidence when suspect is evasive. Use emotional appeal about disappointing Grandma."
     },
-    "wildcards": [
+    "inspector_wildcards": [
       {
         "name": "Examine Kitchen Items",
         "description": "Carefully examine kitchen objects for evidence",
@@ -148,5 +165,6 @@
       "max_questions": 15,
       "current_questions": 0
     }
-  }
+  },
+"suspicion_points": 0
 }

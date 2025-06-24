@@ -70,9 +70,8 @@ class WildcardInspector(BaseModel):
 class EndConditions(BaseModel):
     suspicion_threshold: int = Field(..., description="[X] Suspicion level needed to consider the case solved (you're building toward this)")
     max_questions: int = Field(..., description="[R] Maximum number of questions you can ask before the investigation ends (RP: time limit)")
-#    max_wildcards_used: int = Field(..., description="Maximum number of wildcard tools that can be used in total")
-#    confession_ends_game: bool = Field(..., description="Whether a full confession from the suspect immediately ends the investigation")
     current_questions: int = Field(default=0, description="[R] Number of questions asked so far - automatically tracked")
+    suspicion_points: int = Field(..., ge=0, description="[R] Total suspicion points accumulated by the inspector, used to assess the suspect's credibility")
 
 class Scenario(BaseModel):
     id: str = Field(..., description="[X] Unique identifier for this investigation scenario")
