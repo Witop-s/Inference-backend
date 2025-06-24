@@ -13,8 +13,8 @@ or could be used to make them appear guilty in their next response.
 Facts:
 {facts}
 
-Transcript:
-{transcript}
+Dialogue:
+{dialogue}
 
 Respond with a JSON array of useful facts.
 """)

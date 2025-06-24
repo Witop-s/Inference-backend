@@ -30,13 +30,13 @@ alteration_prompt = ChatPromptTemplate.from_messages([
         
         Exception !
         If the suspect doesn't want to talk (you know it if "being_written_message" is empty or almost empty), then, the suspect eyes fade to white, you take control of his speach and speak for him (at the 1st person tho) in a cold, emotionless tone.
-        It must be just a few words. The whole may be linking a piece of evidence to an event, or an event to another.. etc... Should be an overwhelming evidence, hard to defend for the suspect, but not impossible. Must be cold, must be true, must be somewhat enigmatic. Be contextual (take the transcript into account).
+        It must be just a few words. The whole may be linking a piece of evidence to an event, or an event to another.. etc... Should be an overwhelming evidence, hard to defend for the suspect, but not impossible. Must be cold, must be true, must be somewhat enigmatic. Be contextual (take the dialogue into account).
         Put <mod> and </mod> tags around the whole sentence.
         
         {format_instructions}
     """),
 
-    HumanMessagePromptTemplate.from_template("Transcript:\n{transcript}"),
+    HumanMessagePromptTemplate.from_template("Dialogue:\n{dialogue}"),
     HumanMessagePromptTemplate.from_template("Being_written_message:\n{being_written_message}"),
     HumanMessagePromptTemplate.from_template("Scenario:\n{scenario}")
 ])

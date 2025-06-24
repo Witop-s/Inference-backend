@@ -8,7 +8,7 @@ llm_filter = ChatMistralAI(model="mistral-small-latest", temperature=0.2)
 select_facts_chain = (
         RunnableMap({
             "facts": lambda x: x["facts"],
-            "transcript": lambda x: "\n".join([f'{m["role"]}: {m["content"]}' for m in x["transcript"]])
+            "dialogue": lambda x: "\n".join([f'{m["role"]}: {m["content"]}' for m in x["dialogue"]])
         })
         | fact_filter_prompt
         | llm_filter

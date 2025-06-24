@@ -26,7 +26,7 @@ clean_output = RunnableLambda(lambda x: clean_markdown_blocks(x))
 prompt_node = (
         RunnableMap({
             "being_written_message": lambda x: x["being_written_message"],
-            "transcript": lambda x: "\n".join([f'{m["role"]}: {m["content"]}' for m in x["transcript"]]),
+            "dialogue": lambda x: "\n".join([f'{m["role"]}: {m["content"]}' for m in x["dialogue"]]),
             "format_instructions": lambda _: format_instructions,
             "scenario": lambda x: x["scenario"]
         })
