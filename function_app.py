@@ -4,43 +4,59 @@ logging.warning("⚠️ function_app.py loaded")
 import azure.functions as func
 app = func.FunctionApp()
 
+last_error = None
+
 try:
     import dotenv
     dotenv.load_dotenv()
 except Exception as e:
     logging.error(f"❌ dotenv failed to import: {e}")
+    last_error = e
 
 # Importer les handlers
 try:
     from handlers.main_inner_voice import inner_voice
 except Exception as e:
     logging.error(f"❌ inner_voice failed to import: {e}")
+    last_error = e
 
 try:
     from handlers.main_fact_filter import inner_voice_fact_filter
 except Exception as e:
     logging.error(f"❌ inner_voice_fact_filter failed to import: {e}")
+    last_error = e
 
 try:
     from handlers.main_inspector import inspector
 except Exception as e:
     logging.error(f"❌ inspector failed to import: {e}")
+    last_error = e
 
 try:
     from handlers.main_get_scenario import get_scenario
 except Exception as e:
     logging.error(f"❌ get_scenario failed to import: {e}")
+    last_error = e
 
 try:
     from handlers.main_endgame import endgame
 except Exception as e:
     logging.error(f"❌ endgame failed to import: {e}")
+    last_error = e
 
 @app.function_name(name="ping")
 @app.route(route="ping", auth_level=func.AuthLevel.ANONYMOUS)
 def ping(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("ping called")
     return func.HttpResponse("pong", status_code=200)
+
+@app.function_name(name="provoke_last_error")
+@app.route(route="provoke_last_error", auth_level=func.AuthLevel.ANONYMOUS)
+def provoke_last_error(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info("provoke last error called")
+    if last_error:
+        raise last_error
+    return func.HttpResponse("No error raised yet", status_code=200)
 
 @app.function_name(name="inner_voice")
 @app.route(route="inner-voice", auth_level=func.AuthLevel.ANONYMOUS)
