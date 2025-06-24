@@ -13,7 +13,7 @@ class Charges(BaseModel):
     primary_charge: str = Field(..., description="[R] The main accusation or crime being investigated")
 
 class TimelineEvent(BaseModel):
-    event_id: str = Field(..., description="[RW] Unique identifier for this event - use existing IDs to edit known events, don't copy otherwise")
+    event_id: str = Field(..., description="[RW] Unique identifier for this event")
     time: str = Field(..., description="[RW] Timestamp when this event occurred (e.g., '2:30 PM', '2:00-2:30 PM', '2:00 AM J-1')")
     truth: str = Field(..., description="[R] What actually happened at this time (only viewable if discovered)")
     suspect_version: str = Field(default="", description="[RW] The suspect's claimed version of what happened at this time - fill this as you gather information during questioning")
@@ -63,7 +63,7 @@ class SuspectWildcard(BaseModel):
     uses_left: int = Field(..., description="[X] Number of times the suspect can still use this tool")
 
 class WildcardInspector(BaseModel):
-    name: str = Field(..., description="[R] Name of the special investigation action you want to use, copy only if you want to activate it, and fill 'how_to_use' with the action you want to take")
+    name: str = Field(..., description="[R] Name of the special investigation action")
     how_to_use: str = Field(..., description="[RW] How do you want to use this tool? (e.g. 'Use x on y to try to find out about z') - This use may or may not be successful.")
     use_now: bool = Field(default=False, description="[RW] Whether you choose to use this tool on your current reply - set to true to activate it. If true, your speech should be contextual / match your action.")
 

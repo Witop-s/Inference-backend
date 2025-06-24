@@ -1,9 +1,10 @@
+import json
 import logging
 from copy import deepcopy
 from typing import Tuple, Dict, Any, Set
 
 import azure.functions as func
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 
 from chains import gamemaster_chain
 from models.inspector_model import JsonInput, JsonOutput
@@ -15,8 +16,20 @@ def inspector(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('HTTP trigger: inspector')
 
     try:
+        # Debug: vérifier si on reçoit bien quelque chose
+        logging.info(f"Request method: {req.method}")
+        logging.info(f"Request headers: {dict(req.headers)}")
+
         body_json = req.get_json()
+        logging.info(f"Raw JSON received: {body_json}")
+        logging.info(f"JSON type: {type(body_json)}")
+
+        if body_json is None:
+            logging.error("get_json() returned None")
+            return func.HttpResponse("No JSON data received", status_code=400)
+
         scenario_model = JsonInput(**body_json)
+        logging.info("JsonInput model created successfully")
 
         if is_wildcard_been_used(scenario_model):
             logging.info("Wildcard has been used, invoking gamemaster chain")
@@ -34,14 +47,23 @@ def inspector(req: func.HttpRequest) -> func.HttpResponse:
         logging.info(f"Extracted [X] fields: {list(x_marked_fields.keys())}")
 
         result = inspector_chain.invoke(censored_body)
-
         merged_result_dict = merge_extracted_fields(result.model_dump(), body_json)
         merged_result = JsonOutput(**merged_result_dict)
 
         return func.HttpResponse(merged_result.model_dump_json(), mimetype="application/json", status_code=200)
+
+    except json.JSONDecodeError as e:
+        logging.error(f"JSON decode error: {e}")
+        return func.HttpResponse(f"Invalid JSON: {str(e)}", status_code=400)
+    except ValidationError as e:
+        logging.error(f"Pydantic validation error: {e}")
+        return func.HttpResponse(f"Validation error: {str(e)}", status_code=400)
     except Exception as e:
         logging.error(f"Error main_inspector: {e}")
-        return func.HttpResponse("An error occurred.", status_code=500)
+        logging.error(f"Exception type: {type(e)}")
+        import traceback
+        logging.error(f"Traceback: {traceback.format_exc()}")
+        return func.HttpResponse(f"An error occurred! {str(e)}", status_code=500)
 
 def deep_merge_dicts(base: Dict[str, Any], update: Dict[str, Any]) -> Dict[str, Any]:
     """Recursively merge `update` into `base`."""

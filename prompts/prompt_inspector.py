@@ -17,7 +17,6 @@ class InspectorOutput(BaseModel):
     pose: str = Field(..., description="Your pose, choose from: idle/pointing/slam_table.")
     expression: str = Field(..., description="Your face expression, choose from: angry_shouting/closed_eyes_idle_speaking/closed_mouth_closed_eyes/closed_mouth_open_eyes/idle_speaking/unimpressed.")
     scenario: ScenarioInspector = Field(..., description="The current scenario, including the context, charges, timeline, etc. This is used to keep track of the investigation and the suspect's responses. You are free to edit fields marked as [RW] (read-write) in the scenario model")
-    sus_points: int = Field(..., ge=0, le=100, description="A number concerning the last answer from the suspect, 0 = plausible given the context, 50 = weird/uncollaborative, 100 = confession.")
 
 output_parser = PydanticOutputParser(pydantic_object=InspectorOutput)
 format_instructions = output_parser.get_format_instructions()
