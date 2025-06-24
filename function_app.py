@@ -1,3 +1,6 @@
+import logging
+logging.warning("⚠️ function_app.py loaded")
+
 import azure.functions as func
 
 from dotenv import load_dotenv
