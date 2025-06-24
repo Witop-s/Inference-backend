@@ -4,6 +4,12 @@ logging.warning("⚠️ function_app.py loaded")
 import azure.functions as func
 app = func.FunctionApp()
 
+try:
+    import dotenv
+    dotenv.load_dotenv()
+except Exception as e:
+    logging.error(f"❌ dotenv failed to import: {e}")
+
 # Importer les handlers
 try:
     from handlers.main_inner_voice import inner_voice
