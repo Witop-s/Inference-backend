@@ -10,7 +10,7 @@
     "context": {
       "title": "Modern Art Museum Theft",
       "description": "A valuable painting was stolen from the Modern Art Museum last night. Security cameras were disabled for 45 minutes. You are Alex Rivers, a museum guide and art enthusiast, being questioned by Inspector Martin.",
-      "setting": "Police station",
+      "setting": "Police station interrogation room",
       "inspector": "Inspector Martin",
       "suspect_name": "Alex Rivers",
       "suspect_description": "Museum guide, 28 years old, art enthusiast and amateur collector. Familiar with security systems.",
@@ -197,18 +197,18 @@
     ],
     "suspect_wildcards": [
       {
-        "name": "Stay Calm",
-        "description": "Your next statement has 80% less chance of being altered",
+        "name": "Self Control",
+        "description": "Your next statement will have 75% less chances of being altered",
         "uses_left": 4
       },
       {
         "name": "Quick Thinking",
-        "description": "Slows down time by 2x for better thinking",
+        "description": "Slows down time by 3x",
         "uses_left": 3
       },
       {
-        "name": "F*ck Go Back!",
-        "description": "Cancel your last statement",
+        "name": "F*ck Go Back !",
+        "description": "Go back to your previous statement",
         "uses_left": 2
       }
     ],

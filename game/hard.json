@@ -1,0 +1,309 @@
+{
+  "dialogue": [
+    {"role": "investigator", "content": "Agent Carter. I appreciate you coming in under these circumstances. The situation at the consulate is... delicate. We need to establish the facts quickly and quietly. National security is at stake here."}
+  ],
+  "being_written_message": "",
+  "scenario": {
+    "id": "consulate_espionage",
+    "difficulty": "hard",
+    "max_suspicion": 40,
+    "context": {
+      "title": "Classified Document Breach at Foreign Consulate",
+      "description": "Top secret NATO defense plans were stolen from the secure vault at the German Consulate. The theft occurred during a diplomatic reception with 200+ guests. You are Agent Elena Carter, a cultural attaché with diplomatic immunity, being questioned by Director Hayes from Counter-Intelligence.",
+      "setting": "Secure government facility interrogation room",
+      "inspector": "Director Hayes",
+      "suspect_name": "Elena Carter",
+      "suspect_description": "Cultural attaché at German Consulate, former intelligence operative, 35 years old. Has diplomatic immunity and extensive knowledge of security protocols.",
+      "suspect_age": 35
+    },
+    "charges": {
+      "primary_charge": "Espionage and theft of classified NATO defense documents"
+    },
+    "timeline": [
+      {
+        "event_id": "1",
+        "time": "2:00 PM D-1",
+        "truth": "Suspect receives encrypted message from foreign handler",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 5
+      },
+      {
+        "event_id": "2",
+        "time": "4:30 PM D-1",
+        "truth": "Suspect meets with handler in diplomatic quarter",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 6
+      },
+      {
+        "event_id": "3",
+        "time": "6:00 PM D-1",
+        "truth": "Diplomatic reception begins - suspect mingles with guests",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "suspect_knows": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "event_id": "4",
+        "time": "7:15 PM D-1",
+        "truth": "Suspect excuses herself during ambassador's speech",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 3
+      },
+      {
+        "event_id": "5",
+        "time": "7:22 PM D-1",
+        "truth": "Suspect uses stolen biometric data to access secure vault",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 8
+      },
+      {
+        "event_id": "6",
+        "time": "7:35 PM D-1",
+        "truth": "Suspect photographs classified NATO documents with micro-camera",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 10
+      },
+      {
+        "event_id": "7",
+        "time": "7:48 PM D-1",
+        "truth": "Suspect plants false evidence implicating another diplomat",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "event_id": "8",
+        "time": "7:55 PM D-1",
+        "truth": "Suspect returns to reception, establishes alibi with multiple witnesses",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 2
+      },
+      {
+        "event_id": "9",
+        "time": "9:30 PM D-1",
+        "truth": "Reception ends, suspect leaves with other diplomats",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "suspect_knows": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "event_id": "10",
+        "time": "11:45 PM D-1",
+        "truth": "Suspect transmits stolen intelligence via encrypted satellite link",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 7
+      },
+      {
+        "event_id": "11",
+        "time": "6:00 AM",
+        "truth": "Security discovers breach during routine morning check",
+        "suspect_version": "",
+        "suspect_supposed_to_know": false,
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "event_id": "12",
+        "time": "8:30 AM",
+        "truth": "Suspect arrives at consulate for normal work day",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "suspect_knows": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "1",
+        "description": "Encrypted communications intercepted from suspect's diplomatic pouch",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 6
+      },
+      {
+        "evidence_id": "2",
+        "description": "Biometric scanner logs showing suspect's credentials used at 7:22 PM",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 8
+      },
+      {
+        "evidence_id": "3",
+        "description": "Micro-camera device found hidden in suspect's diplomatic briefcase",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 9
+      },
+      {
+        "evidence_id": "4",
+        "description": "Satellite transmission data linking to suspect's location at 11:45 PM",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 7
+      },
+      {
+        "evidence_id": "5",
+        "description": "Financial records showing unexplained deposits in offshore accounts",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 5
+      },
+      {
+        "evidence_id": "6",
+        "description": "Witness testimony placing suspect away from reception during critical time",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "evidence_id": "7",
+        "description": "DNA evidence on vault door handle matching suspect",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 6
+      },
+      {
+        "evidence_id": "8",
+        "description": "Psychological evaluation suggesting suspect has been compromised",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 3
+      },
+      {
+        "evidence_id": "9",
+        "description": "Previous security clearance violations in suspect's file",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "evidence_id": "10",
+        "description": "Security footage showing suspicious figure near vault (face obscured)",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "evidence_id": "11",
+        "description": "Ambassador Schmidt also had vault access and recent financial troubles",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "evidence_id": "12",
+        "description": "Maintenance worker Jensen had been acting suspiciously near secure areas",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "evidence_id": "13",
+        "description": "Recent cyber attack attempts on consulate systems from unknown source",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      }
+    ],
+    "questioning_subjects": [],
+    "inspector_personality": {
+      "approach": "Experienced counter-intelligence director",
+      "tone": "Professional, methodical, and increasingly aggressive. Aware of diplomatic complexities but determined to uncover the truth.",
+      "strategy": "Start with routine questions, gradually introduce evidence, use psychological pressure. Will leverage diplomatic international incident implications."
+    },
+    "inspector_wildcards": [
+      {
+        "name": "Analyze Digital Forensics",
+        "description": "Deep dive into electronic evidence and communications (Specify what digital evidence to examine, e.g. 'Analyze encrypted files from diplomatic pouch')",
+        "uses_left": 3,
+        "use_tool": false,
+        "how_to_use": "Replace with explanation if use_tool = true"
+      },
+      {
+        "name": "Cross-Reference Intelligence Networks",
+        "description": "Check suspect against known foreign agent databases and surveillance (Specify what to cross-reference, e.g. 'Check suspect's contacts against Russian intelligence network')",
+        "uses_left": 3,
+        "use_tool": false,
+        "how_to_use": "Replace with explanation if use_tool = true"
+      },
+      {
+        "name": "Diplomatic Immunity Override",
+        "description": "Escalate to higher authorities to potentially bypass diplomatic protections (Specify grounds for override, e.g. 'Request emergency override based on national security threat')",
+        "uses_left": 2,
+        "use_tool": false,
+        "how_to_use": "Replace with explanation if use_tool = true"
+      },
+      {
+        "name": "Polygraph and Psychological Analysis",
+        "description": "Request advanced interrogation techniques (Specify type of analysis, e.g. 'Conduct stress analysis during questioning about vault access')",
+        "uses_left": 2,
+        "use_tool": false,
+        "how_to_use": "Replace with explanation if use_tool = true"
+      }
+    ],
+    "suspect_wildcards": [
+      {
+        "name": "Self Control",
+        "description": "Your next statement will have 75% less chances of being altered",
+        "uses_left": 8
+      },
+      {
+        "name": "Quick Thinking",
+        "description": "Slows down time by 3x",
+        "uses_left": 5
+      },
+      {
+        "name": "F*ck Go Back !",
+        "description": "Go back to your previous statement",
+        "uses_left": 1
+      }
+    ],
+    "end_conditions": {
+      "suspicion_threshold": 32,
+      "max_questions": 35,
+      "current_questions": 0
+    }
+  }
+}
