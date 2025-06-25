@@ -55,7 +55,7 @@ class InspectorWildcard(BaseModel):
     description: str = Field(..., description="[R] What this investigation tool does and how it can help uncover evidence")
     uses_left: int = Field(..., description="[RW] Number of times you can still use this tool - use sparingly as they are limited")
     use_tool: bool = Field(default=False, description="[RW] Whether you choose to use this tool on your current reply - set to true to activate it. If true, your speech should be contextual / match your action.")
-    how_to_use: str = Field(..., description="[RW] How do you want to use this tool? (e.g. 'Use x on y to try to find out about z') - This use may or may not be successful.")
+    how_to_use: Union[None, str] = Field(..., description="[RW] How do you want to use this tool? (e.g. 'Use x on y to try to find out about z') - This use may or may not be successful.")
 
 class SuspectWildcard(BaseModel):
     name: str = Field(..., description="[X] Name of suspect's special investigation action")
@@ -64,8 +64,8 @@ class SuspectWildcard(BaseModel):
 
 class WildcardInspector(BaseModel):
     name: str = Field(..., description="[R] Name of the special investigation action")
-    how_to_use: str = Field(..., description="[RW] How do you want to use this tool? (e.g. 'Use x on y to try to find out about z') - This use may or may not be successful.")
-    use_now: bool = Field(default=False, description="[RW] Whether you choose to use this tool on your current reply - set to true to activate it. If true, your speech should be contextual / match your action.")
+    use_tool: bool = Field(default=False, description="[RW] Whether you choose to use this tool on your current reply - set to true to activate it. If true, your speech should be contextual / match your action.")
+    how_to_use: Union[None, str] = Field(..., description="[RW] How do you want to use this tool? (e.g. 'Use x on y to try to find out about z') - This use may or may not be successful.")
 
 class EndConditions(BaseModel):
     suspicion_threshold: int = Field(..., description="[X] Suspicion level needed to consider the case solved (you're building toward this)")
