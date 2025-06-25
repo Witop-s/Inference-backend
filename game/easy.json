@@ -1,0 +1,222 @@
+{
+  "dialogue": [
+    {"role": "investigator", "content": "Hello Alex. Thank you for coming in so quickly. I know you were close to what happened at the museum last night. Just a few routine questions to clear things up."}
+  ],
+  "being_written_message": "",
+  "scenario": {
+    "id": "museum_theft",
+    "difficulty": "easy",
+    "max_suspicion": 20,
+    "context": {
+      "title": "Modern Art Museum Theft",
+      "description": "A valuable painting was stolen from the Modern Art Museum last night. Security cameras were disabled for 45 minutes. You are Alex Rivers, a museum guide and art enthusiast, being questioned by Inspector Martin.",
+      "setting": "Police station",
+      "inspector": "Inspector Martin",
+      "suspect_name": "Alex Rivers",
+      "suspect_description": "Museum guide, 28 years old, art enthusiast and amateur collector. Familiar with security systems.",
+      "suspect_age": 28
+    },
+    "charges": {
+      "primary_charge": "Grand theft of artwork valued at 2.5 million euros"
+    },
+    "timeline": [
+      {
+        "event_id": "1",
+        "time": "5:30 PM D-1",
+        "truth": "Suspect finishes work day normally",
+        "suspect_version": "",
+        "suspect_supposed_to_know": true,
+        "suspect_knows": true,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "event_id": "2",
+        "time": "7:15 PM D-1",
+        "truth": "Suspect meets with underground art buyer at café",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "event_id": "3",
+        "time": "9:45 PM D-1",
+        "truth": "Suspect uses keycard to enter museum",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 5
+      },
+      {
+        "event_id": "4",
+        "time": "10:10 PM D-1",
+        "truth": "Suspect disables security system using access code",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 6
+      },
+      {
+        "event_id": "5",
+        "time": "10:30 PM D-1",
+        "truth": "Suspect steals 'Starry Night' painting (reproduction)",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "event_id": "6",
+        "time": "11:00 PM D-1",
+        "truth": "Suspect leaves museum with painting",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": true,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 3
+      },
+      {
+        "event_id": "7",
+        "time": "8:30 AM",
+        "truth": "Theft discovered by cleaning crew",
+        "suspect_version": "",
+        "suspect_supposed_to_know": false,
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      }
+    ],
+    "evidence": [
+      {
+        "evidence_id": "1",
+        "description": "Suspect's access badge used at 9:45 PM",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 5
+      },
+      {
+        "evidence_id": "2",
+        "description": "Suspect's security code used to disable alarms",
+        "suspect_version": "",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 6
+      },
+      {
+        "evidence_id": "3",
+        "description": "Suspect's clothing fibers found near stolen painting",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 4
+      },
+      {
+        "evidence_id": "4",
+        "description": "Phone records showing calls to suspicious numbers",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 3
+      },
+      {
+        "evidence_id": "5",
+        "description": "Suspect's significant gambling debts",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 2
+      },
+      {
+        "evidence_id": "6",
+        "description": "Marcus (colleague) also had access and significant debts",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "evidence_id": "7",
+        "description": "Recent renovation work - several external contractors familiar with building",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "evidence_id": "8",
+        "description": "History of security system malfunctions in recent weeks",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": true,
+        "suspicion_points_if_revealed": 0
+      },
+      {
+        "evidence_id": "9",
+        "description": "Group of suspicious visitors spotted on afternoon of theft",
+        "suspect_supposed_to_know": "unknown",
+        "suspect_knows": false,
+        "inspector_knows": false,
+        "suspicion_points_if_revealed": 0
+      }
+    ],
+    "questioning_subjects": [],
+    "inspector_personality": {
+      "approach": "Benevolent but perceptive inspector",
+      "tone": "Friendly and understanding, but becomes more insistent if inconsistencies appear",
+      "strategy": "Start by building trust, then ask about timeline. Easily distracted by red herrings."
+    },
+    "inspector_wildcards": [
+      {
+        "name": "Check Security Records",
+        "description": "Examine access logs and digital traces (Specify exact time period to check)",
+        "uses_left": 2,
+        "use_tool": false,
+        "how_to_use": "Replace with explanation if use_tool = true"
+      },
+      {
+        "name": "Interview Witness",
+        "description": "Contact and question a specific person (Specify who to question)",
+        "uses_left": 2,
+        "use_tool": false,
+        "how_to_use": "Replace with explanation if use_tool = true"
+      },
+      {
+        "name": "Analyze Physical Evidence",
+        "description": "Have a specific material element analyzed (Specify what to analyze)",
+        "uses_left": 1,
+        "use_tool": false,
+        "how_to_use": "Replace with explanation if use_tool = true"
+      }
+    ],
+    "suspect_wildcards": [
+      {
+        "name": "Stay Calm",
+        "description": "Your next statement has 80% less chance of being altered",
+        "uses_left": 4
+      },
+      {
+        "name": "Quick Thinking",
+        "description": "Slows down time by 2x for better thinking",
+        "uses_left": 3
+      },
+      {
+        "name": "F*ck Go Back!",
+        "description": "Cancel your last statement",
+        "uses_left": 2
+      }
+    ],
+    "end_conditions": {
+      "suspicion_threshold": 16,
+      "suspicion_points": 0,
+      "max_questions": 15,
+      "current_questions": 0
+    }
+  }
+}
