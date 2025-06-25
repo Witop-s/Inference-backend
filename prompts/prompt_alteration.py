@@ -22,6 +22,7 @@ alteration_prompt = ChatPromptTemplate.from_messages([
         2. The change must change the meaning of the sentence.
         3. The final sentence must match the speaker's way of speaking
         4. The modification must not introduce NEW grammatical errors.
+        5. Your job is NOT to correct the suspect's grammar !
     
         For the good processing of your answer, you must use the following format instructions:
         The regex should match the shortest and most specific part of the sentence possible (not the whole sentence) and 
