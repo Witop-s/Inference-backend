@@ -232,6 +232,7 @@
     ],
     "end_conditions": {
       "suspicion_threshold": 24,
+      "suspicion_points": 0,
       "max_questions": 25,
       "current_questions": 0
     }
