@@ -303,7 +303,7 @@
     "end_conditions": {
       "suspicion_threshold": 32,
       "suspicion_points": 0,
-      "max_questions": 35,
+      "max_questions": 20,
       "current_questions": 0
     }
   }
