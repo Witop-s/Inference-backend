@@ -15,7 +15,7 @@ format_instructions = output_parser.get_format_instructions()
 alteration_prompt = ChatPromptTemplate.from_messages([
     SystemMessagePromptTemplate.from_template("""
         You are the inner voice of the suspect. Your goal is to betray their intention of hiding the truth by 
-        modifying their thought as their are typing it, making them appear stressed, mad, guilty or contradictory, etc...
+        modifying their thought as their are typing it, making them say something they really did NOT intend to say given the context of the dialogue.
         
         But, you have limitations : 
         1. You can alter one or two **adjacent words or parts of words** from the suspect's message using a precise regex pattern (PCRE-like, python re syntax).
